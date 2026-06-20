@@ -20,56 +20,39 @@ Give your AI agent a quality engineer's brain. Not here to fill out your 8D repo
 
 ---
 
-## 项目关系
+## 和 8d-guru 的关系
 
-8D-CLI 不是一个孤立工具。它是三层架构里的 Layer 2，挂载 Layer 1 的方法论技能。
+**8D-CLI 是壳，8d-guru 是脑。**
 
 ```
-你 (质量工程师)
-  │
-  ▼
-┌──────────────────────────────────────────────┐
-│  8D-CLI  (Layer 2 · CLI 工具)                │
-│  pip install 之后得到一个 8d 命令              │
-│  管工厂数据、案件存储、LLM 对接               │
-│                                               │
-│  依赖 ──→ 8d-root-cause-coach (Python 包)     │
-│  挂载 ──→ 8d-guru (Markdown 技能)             │
-└──────────────────────────────────────────────┘
-          │                        │
-          ▼                        ▼
-┌──────────────────┐   ┌──────────────────────────┐
-│ 8d-root-cause    │   │ 8d-guru (v0.2.1)         │
-│ -coach (Python)  │   │ 纯 Markdown · 零依赖       │
-│                  │   │ 42 个 S1-S5 深度提示词     │
-│ 门禁校验 · 5-Why │   │ 贝叶斯假设追踪 · TRIZ     │
-│ 结构验证 · 交付物 │   │ IATF 16949 · ISO 9001    │
-│ MIT 开源         │   │ MIT 开源 · Agent 挂载即用  │
-└──────────────────┘   └──────────────────────────┘
+8d-guru (纯 Markdown 技能)         8D-CLI (命令行工具)
+┌────────────────────────┐        ┌──────────────────────┐
+│ 42 个 S1-S5 提示词      │  挂载  │ 工厂数据 · 案件存储    │
+│ 贝叶斯 · TRIZ · 门禁   │ ────→ │ LLM 对接 · 报告生成   │
+│ IATF 16949 · ISO 9001  │  读取  │ 9 个 CLI 命令         │
+│                        │        │                      │
+│ 方法论怎么问、怎么追、    │        │ 管工厂上下文、调 LLM、  │
+│ 怎么评分 —— 全在这里     │        │ 存结果 —— 不维护方法论  │
+└────────────────────────┘        └──────────────────────┘
 ```
 
-**8d-guru 是方法论真相源。** CLI 本身不维护提示词、不问问题——它从 8d-guru 读取 S1-S5 方法论（发散探索 → 第一性收敛 → 证伪挑战 → 答案评分 → 集成交付物），注入工厂上下文后调 LLM。8d-guru 更新了，CLI 自动跟进。
+CLI 不自己写提示词。它的 `question` 命令做的事：从 8d-guru 读对应问题点的 markdown 文件 → 注入当前案件的工厂上下文 → 发给 LLM → 解析结果。8d-guru 更新方法论了，CLI 不用改代码，自动跟进。
+
+另外依赖 `8d-root-cause-coach`（Python 包，藏在 8D-Agent 仓库里）做门禁校验和 5-Why 结构检查。pip install 时自动装，用户不用管。
 
 ---
 
 ## 快速上手
 
-### 1. 装好三个项目
+### 1. 安装
 
 ```bash
-# 三个项目平级放在一起
-01-Products/
-├── 8d-guru/     # git clone https://github.com/jilanfang/8d-guru.git
-├── 8D-Agent/    # 包含 8d-root-cause-coach Python 包
-└── 8D-CLI/      # git clone https://github.com/jilanfang/8d-cli.git
-```
-
-```bash
-cd 8D-CLI
+git clone https://github.com/jilanfang/8d-cli.git
+cd 8d-cli
 pip install -e ".[dev]"
 ```
 
-依赖会自动从 `../8D-Agent/packages/8d-root-cause-coach` 安装。
+依赖 `8d-root-cause-coach` 会自动从本地 `../8D-Agent/packages/8d-root-cause-coach` 安装。没有 8D-Agent 仓库的话，等它发布到 PyPI 后走 pip 直接装。
 
 ### 2. 配置 LLM（可选，不配也能 Mock 跑）
 
