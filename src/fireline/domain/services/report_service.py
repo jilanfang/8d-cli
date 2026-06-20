@@ -2,11 +2,10 @@
 
 from __future__ import annotations
 
-from eight_d_coach.deliverables import DeliverableBuilder
-
 from fireline.adapters.skill.mapper import map_case_to_skill
 from fireline.domain.models.case import Case
 from fireline.domain.models.report import Report, ReportFormat, ReportSection
+from fireline.skill.deliverables import DeliverableBuilder
 
 
 class ReportService:

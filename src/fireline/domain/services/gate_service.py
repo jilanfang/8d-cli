@@ -2,10 +2,9 @@
 
 from __future__ import annotations
 
-from eight_d_coach import GateValidator
-
 from fireline.adapters.skill.mapper import map_case_to_skill
 from fireline.domain.models.case import Case, CaseStatus
+from fireline.skill.gates import GateValidator
 
 
 class GateService:

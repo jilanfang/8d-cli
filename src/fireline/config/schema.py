@@ -37,14 +37,11 @@ def save_user_config(config: dict) -> None:
 
 
 class SkillConfig(BaseModel):
-    """Skill source configuration.
+    """Skill configuration.
 
-    When ``skill_path`` is set, the CLI mounts 8d-guru markdown prompts
-    directly instead of using the embedded Jinja2 templates.
+    8d-guru methodology is bundled as package data — no external path needed.
     """
 
-    skill_path: str | None = None
-    """Path to an 8d-guru installation. When set, bypasses Jinja2 templates."""
     profiles: list[str] = Field(default_factory=list)
     """Industry profiles to activate, e.g. ``["iatf16949"]``."""
 

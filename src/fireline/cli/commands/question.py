@@ -49,9 +49,7 @@ def question(
     client = make_llm_client(cfg.llm, mock=mock)
     exp_service = ExperienceService(store)
     experience = exp_service.get_context_for_case(case)
-    q_service = QuestionService(
-        client, skill_path=cfg.skill.skill_path, skill_profiles=cfg.skill.profiles
-    )
+    q_service = QuestionService(client)
     result = asyncio.run(q_service.guide(case, question_id, experience))
 
     console.print(f"## [{question_id}] 引导")

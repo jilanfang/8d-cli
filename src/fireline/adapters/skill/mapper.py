@@ -4,7 +4,10 @@ from __future__ import annotations
 
 from typing import Any
 
-from eight_d_coach.models import (
+from fireline.domain.models.case import Case
+from fireline.domain.models.evidence import EvidenceBundle
+from fireline.domain.models.factory import FactoryExperience
+from fireline.skill.models import (
     SkillAnswer,
     SkillCaseState,
     SkillControlPointProfile,
@@ -14,10 +17,6 @@ from eight_d_coach.models import (
     SkillPattern,
     SkillTruthChain,
 )
-
-from fireline.domain.models.case import Case
-from fireline.domain.models.evidence import EvidenceBundle
-from fireline.domain.models.factory import FactoryExperience
 
 
 def map_case_to_skill(case: Case) -> SkillCaseState:

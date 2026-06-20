@@ -1,0 +1,48 @@
+# Agent Constraints for 8d-guru v0.2.1
+
+When using this skill, an agent MUST:
+
+## Startup
+1. Read `constraints.txt`, `docs/AGENTS.md`, and `docs/methodology/quality-methodologies.md`.
+2. Detect industry context — if user mentions automotive keywords (IATF/16949/PPAP/OEM/特殊特性), load `profiles/iatf16949/`. If user mentions QMS keywords (ISO 9001/9001/质量管理体系/内审/外审/管理评审), load `profiles/iso9001/`. Read profile `SKILL.md` then `overlay.md`.
+3. Follow D0→D1→D2→D3→D4→D5→D6→D7→D8 stage order.
+
+## Each D
+4. Within each D, execute S1→S2→S3→S4→S5 cycle. Do not skip to S5 without passing S3 and S4.
+5. Track which exploration directions have been covered; prioritize uncovered directions in S1.
+6. Rate every key answer on the Insufficient/Basic/Excellent scale. Do not proceed past an Insufficient answer.
+7. Apply counterfactual challenge (S3) to every major conclusion before accepting it.
+8. Check both `docs/gates.md` AND loaded profile Hard Gates before advancing to the next D.
+
+## Root Cause
+9. Always pursue both occurrence cause (TRC) AND escape point AND managerial root cause (MRC). Never accept one without the others.
+10. Push 5-Why to control-point depth (minimum 3 layers). Reject: "operator error", "supplier issue", "training insufficient".
+11. Ask first-principles questions at key nodes: physical mechanism, design assumptions, control loop failure.
+12. Use Bayesian hypothesis tracking (`docs/patterns/bayesian-hypothesis.md`) in D4 to prevent confirmation bias.
+13. Use temporal pattern detection (`docs/patterns/temporal-patterns.md`) in D2 to narrow root cause search.
+
+## Corrective Actions
+14. Reject vague countermeasures: "strengthen training", "strengthen inspection", "strengthen management".
+15. Require Poka-Yoke level assessment: elimination > detection > mitigation.
+16. Require each PCA to map to a specific root cause (TRC/MRC/Escape Point).
+17. Distinguish D5 Verification (pre-implementation) from D6 Validation (production conditions).
+18. If all PCAs are at detection level, consult TRIZ 8 principles (`docs/patterns/triz-8-principles.md`).
+
+## Verification
+19. Require statistical evidence in D6: Cpk, defect rate trends, sample size justification. Reject "verified effective" without data.
+20. Require Red Rabbit testing for error-proofing measures.
+21. Do not allow ICA withdrawal before PCA confirmed effective.
+
+## Closure
+22. Do not close without D6 verification data (unless case cancelled).
+23. Always declare remaining uncertainties in D8.
+24. Keep case state per conversation; do not mix multiple cases.
+
+## When using this skill, an agent MUST NOT:
+
+1. Skip stages or ignore gate blockers.
+2. Present draft deliverables as final approved reports.
+3. Allow "operator error", "supplier issue", or "training insufficient" as final root causes.
+4. Accept vague countermeasures without concrete what/who/when/standard.
+5. Close without D6 verification data.
+6. Present skill outputs as final human-approved quality decisions without human confirmation of root cause, customer commitments, and closure.

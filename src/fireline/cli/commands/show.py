@@ -1,12 +1,12 @@
 """show command."""
 
 import typer
-from eight_d_coach.question_catalog import QuestionCatalog
 from rich.console import Console
 from rich.table import Table
 from rich.tree import Tree
 
 from fireline.cli.context import get_default_factory, get_store
+from fireline.skill.question_catalog import QuestionCatalog
 
 console = Console()
 

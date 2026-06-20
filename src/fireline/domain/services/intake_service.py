@@ -4,31 +4,16 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from eight_d_coach import SkillEngine
-from eight_d_coach.llm_protocol import LLMBackend
-from eight_d_coach.models import SkillEvidenceBundle, SkillEvidenceItem
-
+from fireline.adapters.llm.provider import LLMClient
 from fireline.adapters.skill.mapper import map_case_to_skill
 from fireline.domain.models.case import Case
+from fireline.skill.engine import SkillEngine
+from fireline.skill.models import SkillEvidenceBundle, SkillEvidenceItem
 
 
 class IntakeService:
-    def __init__(
-        self,
-        llm_client: LLMBackend,
-        base_dir: Path | None = None,
-        skill_path: str | None = None,
-        skill_profiles: list[str] | None = None,
-    ):
-        self.skill_profiles = skill_profiles or []
-        if skill_path:
-            from eight_d_coach import MarkdownSkillLoader
-
-            self.skill_loader = MarkdownSkillLoader(skill_path)
-            self.engine = SkillEngine(llm_client, skill_loader=self.skill_loader)
-        else:
-            self.skill_loader = None
-            self.engine = SkillEngine(llm_client)
+    def __init__(self, llm_client: LLMClient, base_dir: Path | None = None):
+        self.engine = SkillEngine(llm_client)
         self.base_dir = base_dir
 
     async def process(self, raw_input: str, factory_id: str) -> tuple[Case, list[str]]:

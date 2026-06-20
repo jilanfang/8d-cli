@@ -9,15 +9,8 @@ from fireline.domain.services.question_service import QuestionService
 class D4AnalysisService:
     """Coordinates D4-Q2/Q3/Q4 analysis."""
 
-    def __init__(
-        self,
-        llm_client: LLMClient,
-        skill_path: str | None = None,
-        skill_profiles: list[str] | None = None,
-    ):
-        self.question_service = QuestionService(
-            llm_client, skill_path=skill_path, skill_profiles=skill_profiles
-        )
+    def __init__(self, llm_client: LLMClient):
+        self.question_service = QuestionService(llm_client)
 
     async def analyze(
         self,
