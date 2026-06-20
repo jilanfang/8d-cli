@@ -1,0 +1,58 @@
+factory_id: factory_default
+mode: general
+patterns:
+  - phenomenon_type: 焊点开裂
+    frequency: high
+    hit_count: 5
+    typical_causes:
+      - cause: 回流温度过冲
+        confidence: 0.8
+      - cause: 锡膏来料问题
+        confidence: 0.3
+    escape_point_patterns:
+      - location: OQC
+        typical_reason: 目视检验无法发现微小裂纹
+    investigation_order:
+      - 先查工艺参数
+      - 再查来料
+
+  - phenomenon_type: USB接口无输出
+    frequency: medium
+    hit_count: 3
+    typical_causes:
+      - cause: 焊点开裂
+        confidence: 0.7
+      - cause: 连接器来料不良
+        confidence: 0.4
+    escape_point_patterns:
+      - location: FCT
+        typical_reason: 测试程序未覆盖USB供电测试
+    investigation_order:
+      - 先查焊接质量
+      - 再查连接器来料
+
+vocabulary:
+  回流焊: reflow soldering
+  锡膏: solder paste
+  AOI: Automated Optical Inspection
+  ICT: In-Circuit Test
+  FCT: Functional Circuit Test
+  EOL: End of Line
+  WIP: Work in Process
+
+control_point_map:
+  - type: manufacturing
+    function: detect
+    location: 回流炉温度监控
+    status: weak
+  - type: detection_release
+    function: detect
+    location: AOI检测站
+    status: exists
+  - type: detection_release
+    function: detect
+    location: FCT测试站
+    status: weak
+
+truth_chains: []
+updated_at: "2026-06-18T00:00:00Z"

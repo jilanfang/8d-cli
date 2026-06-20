@@ -1,0 +1,130 @@
+{
+  "case_id": "CASE-DEMO-001",
+  "status": "d0_d4",
+  "factory_id": "factory_default",
+  "created_at": "2026-06-18T00:00:00Z",
+  "updated_at": "2026-06-18T00:00:00Z",
+  "data_sources": [
+    {
+      "type": "cli_input",
+      "ref": "new",
+      "summary": "客户反馈型号ABC的USB接口上电无输出"
+    },
+    {
+      "type": "test_record",
+      "ref": "EOL_FAIL_20260610",
+      "summary": "EOL测试发现USB供电异常"
+    }
+  ],
+  "answers": {
+    "d0-q1": {
+      "value": "USB接口上电无输出",
+      "status": "complete",
+      "updated_at": "2026-06-18T00:00:00Z"
+    },
+    "d0-q2": {
+      "value": {
+        "when": "2026-06-10",
+        "where": "客户产线",
+        "who": "客户质量工程师",
+        "how_found": "产线功能测试"
+      },
+      "status": "complete",
+      "updated_at": "2026-06-18T00:00:00Z"
+    },
+    "d0-q3": {
+      "value": {
+        "need_full_8d": true,
+        "reason": "影响主要客户交付，需完整调查",
+        "priority": "high",
+        "alternatives": []
+      },
+      "status": "complete",
+      "updated_at": "2026-06-18T00:00:00Z"
+    },
+    "d1-q1": {
+      "value": "李四",
+      "status": "complete",
+      "updated_at": "2026-06-18T00:00:00Z"
+    },
+    "d1-q2": {
+      "value": "王五",
+      "status": "complete",
+      "updated_at": "2026-06-18T00:00:00Z"
+    },
+    "d2-q1": {
+      "value": "客户反馈型号ABC的USB接口上电无输出，产线复现率约30%",
+      "status": "complete",
+      "updated_at": "2026-06-18T00:00:00Z"
+    },
+    "d2-q5": {
+      "value": "影响批次2026-05，数量约500件，失效率30%",
+      "status": "complete",
+      "updated_at": "2026-06-18T00:00:00Z"
+    },
+    "d4-q2": {
+      "value": {
+        "candidate_causes": [
+          {
+            "cause": "回流温度过冲导致焊点开裂",
+            "category": "法",
+            "evidence_for": ["EOL测试发现USB供电异常", "X-Ray显示焊点裂纹"],
+            "evidence_against": [],
+            "confidence": 0.8
+          },
+          {
+            "cause": "连接器来料不良",
+            "category": "料",
+            "evidence_for": ["该批次连接器为第二供应商"],
+            "evidence_against": ["IQC检验记录合格"],
+            "confidence": 0.4
+          }
+        ]
+      },
+      "status": "complete",
+      "updated_at": "2026-06-18T00:00:00Z"
+    },
+    "d4-q3": {
+      "value": {
+        "why_chain": [
+          {"level": 1, "why": "为什么无输出？", "answer": "焊点开裂导致开路"},
+          {"level": 2, "why": "为什么焊点开裂？", "answer": "回流温度过冲"},
+          {"level": 3, "why": "为什么温度过冲？", "answer": "温度曲线设置超出规格"},
+          {"level": 4, "why": "为什么曲线设置错误？", "answer": "没有针对该产品的曲线规范"}
+        ],
+        "root_cause": "新产品导入流程缺少DFM审查",
+        "control_point_lost": "DFM审查流程"
+      },
+      "status": "complete",
+      "updated_at": "2026-06-18T00:00:00Z"
+    },
+    "d4-q4": {
+      "value": {
+        "escape_chain": [
+          {"location": "OQC", "why_escaped": "目视检验无法发现0201件开裂", "escape_point": "OQC目视检验能力不足"},
+          {"location": "FCT", "why_escaped": "测试程序未覆盖USB供电测试", "escape_point": "FCT测试覆盖不足"}
+        ],
+        "primary_escape_point": "OQC目视检验能力不足"
+      },
+      "status": "complete",
+      "updated_at": "2026-06-18T00:00:00Z"
+    },
+    "d4-q6": {
+      "value": {
+        "control_point": "DFM审查流程",
+        "type": "design",
+        "function": "prevent",
+        "status": "missing"
+      },
+      "status": "complete",
+      "updated_at": "2026-06-18T00:00:00Z"
+    }
+  },
+  "history": [
+    {
+      "timestamp": "2026-06-18T00:00:00Z",
+      "action": "new",
+      "input": "客户反馈型号ABC的USB接口上电无输出"
+    }
+  ]
+}
